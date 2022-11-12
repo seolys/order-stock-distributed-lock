@@ -7,6 +7,6 @@ import seolnavy.order.domain.order.OrderInfo.OrderResult;
 
 public interface OrderLockService {
 
-	OrderResult tryLock(RegisterOrder orderCommand, Function<RegisterOrder, OrderResult> function);
+	OrderResult tryLock(RegisterOrder orderCommand, Function<RegisterOrder, OrderResult> processor);
 
 }

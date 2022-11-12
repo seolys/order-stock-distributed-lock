@@ -25,9 +25,9 @@ public class OrderLockServiceImpl implements OrderLockService {
 	private final DistributedLockImpl<OrderResult> lock;
 
 	@Override
-	public OrderResult tryLock(final RegisterOrder orderCommand, final Function<RegisterOrder, OrderResult> function) {
+	public OrderResult tryLock(final RegisterOrder orderCommand, final Function<RegisterOrder, OrderResult> processor) {
 		final RLock multiLock = getMultiLock(orderCommand);
-		return lock.tryLock(WAIT_TIME, LEASE_TIME, multiLock, () -> function.apply(orderCommand));
+		return lock.tryLock(WAIT_TIME, LEASE_TIME, multiLock, () -> processor.apply(orderCommand));
 	}
 
 	private RLock getMultiLock(final RegisterOrder command) {
