@@ -31,16 +31,24 @@ public class OrderLockServiceImpl implements OrderLockService {
 	}
 
 	private RLock getMultiLock(final RegisterOrder command) {
-		final Set<String> lockKeys = command.getOrderItems().stream()
+		final Set<String> lockKeys = getSortedLockKeys(command);
+		final RLock[] locks = getLocks(lockKeys);
+		return lock.getMultiLock(locks);
+	}
+
+	private RLock[] getLocks(final Set<String> lockKeys) {
+		return lockKeys.stream()
+				.map(lockKey -> lock.getLock(lockKey))
+				.collect(Collectors.toList())
+				.toArray(RLock[]::new);
+	}
+
+	private Set<String> getSortedLockKeys(final RegisterOrder command) {
+		return command.getOrderItems().stream()
 				.map(RegisterOrderItem::getItemId)
 				.map(this::getLockKey)
 				.sorted()
 				.collect(Collectors.toCollection(TreeSet::new));
-		final var locks = lockKeys.stream()
-				.map(lockKey -> lock.getLock(lockKey))
-				.collect(Collectors.toList())
-				.toArray(new RLock[lockKeys.size()]);
-		return lock.getMultiLock(locks);
 	}
 
 	private String getLockKey(final Long itemId) {
