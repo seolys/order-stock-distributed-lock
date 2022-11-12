@@ -1,10 +1,12 @@
 package seolnavy.order.domain.order.lock;
 
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 import seolnavy.order.domain.order.OrderCommand.RegisterOrder;
+import seolnavy.order.domain.order.OrderInfo.OrderResult;
 
-public interface OrderLockService<V> {
+public interface OrderLockService {
 
-	V tryLock(RegisterOrder orderCommand, Callable<V> callable);
+	OrderResult tryLock(RegisterOrder orderCommand, Function<RegisterOrder, OrderResult> function);
 
 }

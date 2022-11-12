@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-	private final OrderLockService<OrderResult> orderLockService;
+	private final OrderLockService orderLockService;
 	private final OrderProcessor orderProcessor;
 	private final OrderReader orderReader;
 
 	@Override
 	public OrderResult registerOrder(final RegisterOrder orderCommand) {
 		// 상품 재고 Lock걸고, 주문 처리완료 후 Lock 해제
-		return orderLockService.tryLock(orderCommand, () -> orderProcessor.order(orderCommand));
+		return orderLockService.tryLock(orderCommand, orderProcessor::order);
 	}
 
 	@Transactional(readOnly = true)
