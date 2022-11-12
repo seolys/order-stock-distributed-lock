@@ -1,0 +1,11 @@
+spring:
+  config:
+    import: classpath:/application-infra.yml
+
+logging:
+  level:
+    root: info
+    seolnavy: debug
+    org.springframework: info
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

@@ -1,0 +1,6 @@
+rootProject.name = 'order'
+
+include 'module-boot-command'
+
+include 'module-domain'
+include 'module-infra'

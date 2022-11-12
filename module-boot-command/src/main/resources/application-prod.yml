@@ -1,0 +1,11 @@
+spring:
+  config:
+    import: classpath:/application-infra-prod.yml
+
+logging:
+  level:
+    root: off
+    seolnavy: off
+    org.springframework: off
+    org.hibernate.SQL: off
+    org.hibernate.type: off
