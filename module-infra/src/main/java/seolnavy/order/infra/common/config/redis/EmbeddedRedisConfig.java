@@ -1,4 +1,4 @@
-package seolnavy.order.infra.common.config.redis.redis;
+package seolnavy.order.infra.common.config.redis;
 
 import java.io.BufferedReader;
 import java.io.IOException;

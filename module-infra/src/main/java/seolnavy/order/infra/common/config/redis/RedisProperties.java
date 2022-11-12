@@ -1,4 +1,4 @@
-package seolnavy.order.infra.common.config.redis.redis;
+package seolnavy.order.infra.common.config.redis;
 
 import lombok.AccessLevel;
 import lombok.Getter;
